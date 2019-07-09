@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-//TODO: Refactor CODe
+//TODO: This code needs a lot of refactoring : ::Refactor CODe
 
 public class DynamicWorld {
 
@@ -16,6 +16,7 @@ public class DynamicWorld {
 	public int tick;
 	private int width;
 	private int height;
+	//TODO: Refactor code to use Position as Key instead of position identifier
 	private Map<String, DynamicCell> aliveCells;
 	
 
@@ -46,7 +47,8 @@ public class DynamicWorld {
 		for (DynamicCell cell : aliveCells.values()) {
 			long alive_neighbours = aliveNeighborsAround(cell);
 			updateAliveNeigborCount(aliveCountOfDeadCell, cell);
-			// Move this logic to Cell
+			
+			// TODO : Move this logic to Cell
 			if (!cell.alive && alive_neighbours == 3) {
 				cell.next_state = 1;
 			} else if (alive_neighbours < 2 || alive_neighbours > 3) {
@@ -109,6 +111,9 @@ public class DynamicWorld {
 		.forEach(positionId -> aliveCountOfDeadCell.merge(positionId, 1, Integer::sum));
 	}
 
+	
+	//TODO: Move Below Methods To Dynamic Cell If Possible.
+	//Think about it
 	/**
 	 * @param cell
 	 * @return List of alive + dead(newly created cells)
